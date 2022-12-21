@@ -3,11 +3,11 @@ package t3;
 public class Puzzle4b {
     int ivar;
 
-    --- --- doStuff(int ---) {
+    public int doStuff(int factor) {
         if (ivar > 100) {
-            return ---;
+            return ivar * factor;
         } else {
-            return ---;
+            return ivar * (5 - factor);
         }
     }
 }
