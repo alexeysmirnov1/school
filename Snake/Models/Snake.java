@@ -1,4 +1,4 @@
-package Snake;
+package Snake.Models;
 
 public class Snake {
     public int rowPosition;
