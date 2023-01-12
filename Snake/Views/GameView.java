@@ -12,8 +12,12 @@ public class GameView implements View {
         this.snake = snake;
     }
 
+    public String title() {
+        return "Змейка";
+    }
+
     public ArrayList<String> render() {
-        return this.snake.render();
+        return this.snake.data();
     }
 
     public View handle(String signal) {

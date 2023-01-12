@@ -4,18 +4,16 @@ import Snake.Models.*;
 import Snake.Views.*;
 
 public class MenuController implements Controller {
-    public View start() {
+    public View index() {
         Menu menu = new Menu();
 
-        View view = new MenuView();
+        View view = new MainMenuView();
         view.with(menu);
 
         return view;
     }
 
     public View newGame() {
-        System.out.println("start new game");
-
         View view = new GameView();
         view.with(new Snake());
 

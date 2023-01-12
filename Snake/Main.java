@@ -10,15 +10,14 @@ public class Main {
 
         Gamepad gamepad = new Gamepad();
         Display display = new Display();
-        MenuView menu = new MenuView();
+        MainMenuView menu = new MainMenuView();
         menu.with(new Menu());
         View view = menu;
-        display.render(view);
 
         do {
+            display.render(view);
             sign = gamepad.awaitSignal();
             view = view.handle(sign);
-            display.render(view);
         } while (! sign.equals("q") );
     }
 }

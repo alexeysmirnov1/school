@@ -7,51 +7,62 @@ public class Display {
     private final int displayWidth = 31;
 
     public void render(View view) {
-        this.header();
+        this.header(view);
 
         for (String line : view.render()) {
-            this.render(line);
+            this.content(line);
         }
 
         this.footer();
     }
 
-    private void header() {
-        System.out.println("  |                               |  ");
-        System.out.println("--*-------------------------------*--");
-        System.out.println("  |           SNAKE GAME          |  ");
-        System.out.println("  |                               |  ");
+    private void header(View view) {
+        System.out.println(this.verticalPadding());
+        System.out.println(this.horizonBorder());
+        this.content(view.title());
+        System.out.println(this.verticalPadding());
     }
 
     private void footer() {
-        System.out.println("  |                               |  ");
-        System.out.println("--*-------------------------------*--");
-        System.out.println("  |                               |  ");
+        System.out.println(this.verticalPadding());
+        System.out.println(this.horizonBorder());
+        System.out.println(this.verticalPadding());
     }
 
-    private void leftPadding() {
-        System.out.print("  |");
+    private void content(String line) {
+        System.out.println(
+            this.leftPadding()
+            + this.lineFormat(line)
+            + this.rightPadding()
+        );
     }
 
-    private void rightPadding() {
-        System.out.print("|  ");
-        System.out.println();
-    }
-
-    private void render(String line) {
-        this.leftPadding();
-
+    private String lineFormat(String line) {
         int lineLength = this.displayWidth - line.length();
         String renderLine = "";
         int padding = lineLength / 2;
 
-        System.out.print(" ".repeat(padding) + line + " ".repeat(padding));
+        line = " ".repeat(padding) + line + " ".repeat(padding);
         if (lineLength % 2 != 0) {
-            System.out.print(" ");
+            line += " ";
         }
 
-        this.rightPadding();
+        return line;
+    }
 
-//         System.out.println("| | | | | | | | | | | | |");
+    private String leftPadding() {
+        return "  |";
+    }
+
+    private String rightPadding() {
+        return "|  ";
+    }
+
+    private String verticalPadding() {
+        return "  |                               |  ";
+    }
+
+    private String horizonBorder() {
+        return "--*-------------------------------*--";
     }
 }

@@ -3,13 +3,15 @@ package Snake.Models;
 import java.util.ArrayList;
 
 public class Menu implements Model {
-    public ArrayList<String> render() {
-        ArrayList<String> lines = new ArrayList<String>();
+    private ArrayList<String> output = new ArrayList<String>();
 
-        lines.add("1) Начать новую игру");
-        lines.add("2) Управление");
-        lines.add("q) Выйти");
+    public Menu() {
+        this.output.add("1) Начать новую игру");
+        this.output.add("2) Управление");
+        this.output.add("q) Выйти");
+    }
 
-        return lines;
+    public ArrayList<String> data() {
+        return this.output;
     }
 }

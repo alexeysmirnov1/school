@@ -3,13 +3,15 @@ package Snake.Models;
 import java.util.ArrayList;
 
 public class Help implements Model {
-    public ArrayList<String> render() {
-        ArrayList<String> lines = new ArrayList<String>();
+    private ArrayList<String> output = new ArrayList<String>();
 
-        lines.add("Для передвижения используйте");
-        lines.add("клавишы wasd");
-        lines.add("1) Назад");
+    public Help() {
+        this.output.add("Для передвижения используйте");
+        this.output.add("клавишы wasd");
+        this.output.add("1) Назад");
+    }
 
-        return lines;
+    public ArrayList<String> data() {
+        return this.output;
     }
 }
