@@ -22,6 +22,6 @@ public class GameView implements View {
 
     public View handle(String signal) {
         GameController controller = new GameController();
-        return controller.start();
+        return controller.start(GameBoard.size);
     }
 }

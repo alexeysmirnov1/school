@@ -14,10 +14,7 @@ public class MenuController implements Controller {
     }
 
     public View newGame() {
-        View view = new GameView();
-        view.with(new Snake());
-
-        return view;
+        return new BoardView();
     }
 
     public View help() {
