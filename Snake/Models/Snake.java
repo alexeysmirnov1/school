@@ -7,64 +7,55 @@ public class Snake implements Model {
     private static int xHeadPosition;
     private static int yHeadPosition;
 
-    private static ArrayList<Integer[]> tail = new ArrayList<Integer[]>();
+    private static boolean grow = false;
 
-    public void setPossition(int x, int y) {
+    private static ArrayList<int[]> tail = new ArrayList<int[]>();
+
+    public void setPosition(int x, int y) {
         Snake.xHeadPosition = x;
         Snake.yHeadPosition = y;
 
         this.moveTail();
+
+        Snake.grow = false;
+
+        System.out.println(tail.size());
     }
 
     public void moveTail() {
-        //
+        if (!Snake.grow) {
+            //
+        }
     }
 
     public ArrayList<String> data() {
         return new ArrayList<String>();
     }
-//    public int rowPosition;
-//    public int cellPosition;
-//
-//    private ArrayList<String> output = new ArrayList<String>();
-//
-//    public void toStart(int[] startPosition) {
-//        this.rowPosition = startPosition[0];
-//        this.cellPosition = startPosition[1];
-//    }
-//
-//    public ArrayList<String> data() {
-//        ArrayList<String> lines = new ArrayList<String>();
-//        return lines;
-//    }
-//
-//    public void doStep(String step) {
-//        if (step.equals("w")) {
-//            this.cellPosition--;
-//            if (this.cellPosition < 0) {
-//                this.cellPosition = 0;
-//            }
-//        }
-//
-//        if (step.equals("s")) {
-//            this.cellPosition++;
-//            if (this.cellPosition > 4) {
-//                this.cellPosition = 4;
-//            }
-//        }
-//
-//        if (step.equals("a")) {
-//            this.rowPosition--;
-//            if (this.rowPosition < 0) {
-//                this.rowPosition = 0;
-//            }
-//        }
-//
-//        if (step.equals("d")) {
-//            this.rowPosition++;
-//            if (this.rowPosition > 4) {
-//                this.rowPosition = 4;
-//            }
-//        }
-//    }
+
+    public int[] headPosition() {
+        int[] coords = {Snake.xHeadPosition, Snake.yHeadPosition};
+        return coords;
+    }
+
+    public ArrayList<int[]> body() {
+        ArrayList<int[]> body = new ArrayList<int[]>();
+
+        int[] headPosition = {Snake.xHeadPosition, Snake.yHeadPosition};
+        body.add(headPosition);
+        body.addAll(Snake.tail);
+
+        return body;
+    }
+
+    public void grow() {
+        Snake.grow = true;
+
+        ArrayList<int[]> body = new ArrayList<int[]>();
+        int[] headPosition = {Snake.xHeadPosition, Snake.yHeadPosition};
+        body.add(headPosition);
+
+        body.addAll(Snake.tail);
+
+        Snake.tail = body;
+    }
 }

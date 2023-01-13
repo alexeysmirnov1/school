@@ -2,15 +2,23 @@ package Snake.Services;
 
 import Snake.Models.*;
 import Snake.Views.*;
+import java.util.ArrayList;
 
 public class Display {
     private final int displayWidth = 31;
+    private final int displayheight = 12;
 
     public void render(View view) {
         this.header(view);
 
-        for (String line : view.render()) {
+        ArrayList<String> lines = view.render();
+        for (String line : lines) {
             this.content(line);
+        }
+
+        int marginCount = this.displayheight - lines.size();
+        for (int i = 0; i < marginCount; i++) {
+            System.out.println(this.verticalPadding());
         }
 
         this.footer();

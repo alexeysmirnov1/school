@@ -22,6 +22,7 @@ public class HelpView extends MenuView implements View {
 
     public View handle(String signal) {
         View view;
+
         switch (signal) {
             case "1": view = this.index(); break;
             default: view = this.help(); break;

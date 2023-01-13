@@ -30,6 +30,6 @@ public class BoardView implements View {
         }
 
         GameController controller = new GameController();
-        return controller.start(size);
+        return controller.index(size);
     }
 }

@@ -22,6 +22,7 @@ public class MainMenuView extends MenuView implements View {
 
     public View handle(String signal) {
         View view;
+
         switch (signal) {
             case "1": view = this.newGame(); break;
             case "2": view = this.help(); break;
