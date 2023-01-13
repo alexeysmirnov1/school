@@ -7,7 +7,7 @@ public class Snake implements Model {
     private static int xHeadPosition;
     private static int yHeadPosition;
 
-    private static HashMap<int, int> tail = new HashMap<int, int>();
+    private static ArrayList<Integer[]> tail = new ArrayList<Integer[]>();
 
     public void setPossition(int x, int y) {
         Snake.xHeadPosition = x;
@@ -18,6 +18,10 @@ public class Snake implements Model {
 
     public void moveTail() {
         //
+    }
+
+    public ArrayList<String> data() {
+        return new ArrayList<String>();
     }
 //    public int rowPosition;
 //    public int cellPosition;
