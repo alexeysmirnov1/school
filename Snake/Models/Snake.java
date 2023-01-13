@@ -1,8 +1,24 @@
 package Snake.Models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Snake implements Model {
+    private static int xHeadPosition;
+    private static int yHeadPosition;
+
+    private static HashMap<int, int> tail = new HashMap<int, int>();
+
+    public void setPossition(int x, int y) {
+        Snake.xHeadPosition = x;
+        Snake.yHeadPosition = y;
+
+        this.moveTail();
+    }
+
+    public void moveTail() {
+        //
+    }
 //    public int rowPosition;
 //    public int cellPosition;
 //

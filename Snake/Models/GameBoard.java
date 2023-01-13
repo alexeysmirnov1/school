@@ -28,7 +28,7 @@ public class GameBoard implements Model {
     }
 
     public void snakeToCenter() {
-        this.snake.setPossition();
+        this.snake.setPossition(3, 3);
     }
 
     private void generateMap() {
