@@ -1,5 +1,7 @@
 package Snake.Models;
 
+import Snake.Services.Point;
+import Snake.Exceptions.UroborosException;
 import java.util.ArrayList;
 
 public class GameBoard implements Model {
@@ -8,8 +10,8 @@ public class GameBoard implements Model {
 
     public static Snake snake;
 
-    public static int xFood = 0;
-    public static int yFood = 0;
+    public static int xFood = -1;
+    public static int yFood = -1;
 
     public ArrayList<String> data() {
         ArrayList<String> lines = new ArrayList<String>();
@@ -52,35 +54,39 @@ public class GameBoard implements Model {
     }
 
     public void renderSnake() {
+        boolean head = true;
         for (int[] coords : GameBoard.snake.body()) {
-            GameBoard.map[coords[0]][coords[1]] = "x";
-            System.out.println(coords[0] + " - " + coords[1]);
+            String charSnake = "x";
+
+            if (head) {
+                charSnake = "X";
+            }
+
+            GameBoard.map[coords[0]][coords[1]] = charSnake;
+
+            head = false;
         }
     }
 
     public void renderFood() {
         boolean success = false;
 
-        if (GameBoard.xFood != 0 && GameBoard.yFood != 0) {
-            GameBoard.map[GameBoard.xFood][GameBoard.yFood] = "*";
+        if (!this.foodDoesntHasOnMap()) {
             success = true;
         }
 
         while (!success) {
-            if (GameBoard.xFood != 0 && GameBoard.yFood != 0) {
-                GameBoard.map[GameBoard.xFood][GameBoard.yFood] = "*";
-                break;
-            }
+            success = true;
+            this.generateFoodPosition();
 
-            GameBoard.xFood = (int) (Math.random() * (GameBoard.size - 1));
-            GameBoard.yFood = (int) (Math.random() * (GameBoard.size - 1));
-
-            String grid = GameBoard.map[GameBoard.xFood][GameBoard.yFood];
-            if (!grid.equals("x")) {
-                GameBoard.map[GameBoard.xFood][GameBoard.yFood] = "*";
-                success = true;
+            for (int[] position : GameBoard.snake.body()) {
+                if(Point.equals(position, this.foodPosition())) {
+                    success = false;
+                }
             }
         }
+
+        GameBoard.map[GameBoard.xFood][GameBoard.yFood] = "*";
     }
 
     public void moveSnakeUp() {
@@ -91,6 +97,7 @@ public class GameBoard implements Model {
         }
 
         this.snakeEatFood(head);
+        this.snakeEatYourself(head);
 
         GameBoard.snake.setPosition(head[0], head[1]);
     }
@@ -103,6 +110,7 @@ public class GameBoard implements Model {
         }
 
         this.snakeEatFood(head);
+        this.snakeEatYourself(head);
 
         GameBoard.snake.setPosition(head[0], head[1]);
     }
@@ -115,6 +123,7 @@ public class GameBoard implements Model {
         }
 
         this.snakeEatFood(head);
+        this.snakeEatYourself(head);
 
         GameBoard.snake.setPosition(head[0], head[1]);
     }
@@ -127,20 +136,49 @@ public class GameBoard implements Model {
         }
 
         this.snakeEatFood(head);
+        this.snakeEatYourself(head);
 
         GameBoard.snake.setPosition(head[0], head[1]);
     }
 
     public void snakeEatFood(int[] head) {
-        if (GameBoard.xFood == head[0] && GameBoard.yFood == head[1]) {
-            GameBoard.xFood = 0;
-            GameBoard.yFood = 0;
+        if (Point.equals(head, this.foodPosition())) {
+            this.resetFoodPosition();
 
             GameBoard.snake.grow();
         }
     }
 
+    private void snakeEatYourself(int[] head) {
+        for (int[] position : GameBoard.snake.body()) {
+            if(Point.equals(position, head)) {
+                throw new UroborosException("");
+            }
+        }
+    }
+
     private int findCenter() {
         return GameBoard.size / 2;
+    }
+
+    private int[] foodPosition() {
+        int[] position = {GameBoard.xFood, GameBoard.yFood};
+        return position;
+    }
+
+    private void resetFoodPosition() {
+        GameBoard.xFood = -1;
+        GameBoard.yFood = -1;
+    }
+
+    private boolean foodDoesntHasOnMap() {
+        return (GameBoard.xFood < 0 && GameBoard.yFood < 0);
+    }
+
+    private void generateFoodPosition() {
+        int[] position = Point.generateRandomPoint(GameBoard.size);
+
+        GameBoard.xFood = position[0];
+        GameBoard.yFood = position[1];
     }
 }

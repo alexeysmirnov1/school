@@ -21,14 +21,28 @@ public class GameView implements View {
     }
 
     public View handle(String signal) {
-        View view;
+        View view = this.index();
 
-        switch (signal) {
-            case "w": view = this.moveUp(); break;
-            case "s": view = this.moveDown(); break;
-            case "a": view = this.moveLeft(); break;
-            case "d": view = this.moveRight(); break;
-            default: view = this.index(); break;
+//        System.out.println(signal[0]);
+
+        for (char c: signal.toCharArray()) {
+            switch (c) {
+                case 'w':
+                    view = this.moveUp();
+                    break;
+                case 's':
+                    view = this.moveDown();
+                    break;
+                case 'a':
+                    view = this.moveLeft();
+                    break;
+                case 'd':
+                    view = this.moveRight();
+                    break;
+                default:
+                    view = this.index();
+                    break;
+            }
         }
 
         return view;
